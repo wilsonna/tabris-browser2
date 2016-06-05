@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        id="com.eclipsesource.tabris.browser2"
+        id="com.wna.tabris.browser"
         version="1.0.1">
 
     <name>Tabris.js Custom WebView Widget</name>
 
     <description>A custom web view widget for Tabris.js which givees access to cookies</description>
 
-    <author>EclipseSource</author>
+    <author>Wilson Na</author>
 
     <!-- cordova -->
     <engines>
         <engine name="cordova" version=">=3.8.0" />
     </engines>
 
-    <js-module src="www/browser2.js" name="browser2">
+    <js-module src="www/browser.js" name="browser">
       <runs />
     </js-module>
 
@@ -23,14 +23,14 @@
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <meta-data
-              android:name="com.eclipsesource.tabris.android.OPERATOR.com.eclipsesource.tabris.browser2"
-              android:value="com.eclipsesource.tabris.browser2.Browser2Operator" />
+              android:name="com.wna.tabris.android.OPERATOR.com.wna.tabris.browser"
+              android:value="com.wna.tabris.browser.BrowserOperator" />
         </config-file>
 
-        <source-file src="src/android/com/eclipsesource/tabris/browser2/Browser2Operator.java"
-          target-dir="src/com/eclipsesource/tabris/browser2" />
-        <source-file src="src/android/com/eclipsesource/tabris/browser2/Browser2PropertyHandler.java"
-          target-dir="src/com/eclipsesource/tabris/browser2" />
+        <source-file src="src/android/com/wna/tabris/browser/BrowserOperator.java"
+          target-dir="src/com/wna/tabris/browser" />
+        <source-file src="src/android/com/wna/tabris/browser/BrowserPropertyHandler.java"
+          target-dir="src/com/wna/tabris/browser" />
 
     </platform>
 

@@ -1,4 +1,4 @@
-package com.eclipsesource.tabris.browser2;
+package com.wna.tabris.browser;
 
 import java.net.CookieManager;
 import java.net.HttpCookie;
@@ -14,10 +14,10 @@ import com.eclipsesource.tabris.android.internal.toolkit.view.Browser;
 import com.eclipsesource.tabris.client.core.model.Properties;
 import com.eclipsesource.tabris.client.core.util.ParamCheck;
 
-public class Browser2PropertyHandler extends TabrisWidgetPropertyHandler<Browser> {
+public class BrowserPropertyHandler extends TabrisWidgetPropertyHandler<Browser> {
 	private final CookieManager cookieManager;
 
-	public Browser2PropertyHandler(Activity activity, TabrisContext tabrisContext, CookieManager cookieManager) {
+	public BrowserPropertyHandler(Activity activity, TabrisContext tabrisContext, CookieManager cookieManager) {
 		super(activity, tabrisContext);
 		this.cookieManager = cookieManager;
 	}

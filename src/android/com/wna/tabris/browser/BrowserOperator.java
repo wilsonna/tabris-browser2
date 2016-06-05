@@ -1,4 +1,4 @@
-package com.eclipsesource.tabris.browser2;
+package com.wna.tabris.browser;
 
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -14,7 +14,7 @@ import com.eclipsesource.tabris.android.internal.toolkit.view.Browser;
 import com.eclipsesource.tabris.android.internal.toolkit.view.BrowserProgressListener;
 import com.eclipsesource.tabris.client.core.model.Properties;
 
-public class Browser2Operator extends AbstractTabrisOperator<Browser> {
+public class BrowserOperator extends AbstractTabrisOperator<Browser> {
 
 	private final TabrisActivity activity;
 	// private final TabrisContext tabrisContext;
@@ -23,12 +23,12 @@ public class Browser2Operator extends AbstractTabrisOperator<Browser> {
 	private final TabrisPropertyHandler<Browser> propertyHandler;
 	private final CookieManager cookieManager = new CookieManager(); // .getInstance();
 
-	public Browser2Operator(TabrisActivity activity, TabrisContext tabrisContext) {
+	public BrowserOperator(TabrisActivity activity, TabrisContext tabrisContext) {
 		this.activity = activity;
 		// this.tabrisContext = tabrisContext;
 		cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 		CookieHandler.setDefault(cookieManager);
-		propertyHandler = new Browser2PropertyHandler(activity, tabrisContext, cookieManager);
+		propertyHandler = new BrowserPropertyHandler(activity, tabrisContext, cookieManager);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class Browser2Operator extends AbstractTabrisOperator<Browser> {
 
 	@Override
 	public String getType() {
-		return "rwt.widgets.Browser2";
+		return "com.wna.Browser";
 	}
 
 	@Override
