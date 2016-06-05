@@ -63,7 +63,7 @@ public class Browser2PropertyHandler extends BrowserPropertyHandler<Browser> {
 			map.put("path", cookie.getPath());
 			map.put("domain", cookie.getDomain());
 			map.put("maxAge", Long.toString(cookie.getMaxAge()));
-			map.put("isHttpOnly", Boolean.toString(cookie.isHttpOnly()));
+			// map.put("isHttpOnly", Boolean.toString(cookie.isHttpOnly()));
 			map.put("isSecure", Boolean.toString(cookie.getSecure()));
 			cookies2.add(map);
 		}
