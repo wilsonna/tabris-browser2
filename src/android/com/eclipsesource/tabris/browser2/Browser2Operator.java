@@ -17,7 +17,6 @@ public class Browser2Operator extends BrowserOperator {
 	// private final TabrisContext tabrisContext;
 	// private final TabrisPropertyHandler<WebView> propertyHandler;
 
-	@SuppressWarnings("unused")
 	private final IPropertyHandler<Browser> propertyHandler;
 	private final CookieManager cookieManager = new CookieManager(); // .getInstance();
 
@@ -28,6 +27,11 @@ public class Browser2Operator extends BrowserOperator {
 		cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 		CookieHandler.setDefault(cookieManager);
 		propertyHandler = new Browser2PropertyHandler(activity, absoluteUriBuilder, cookieManager);
+	}
+
+	@Override
+	protected IPropertyHandler<Browser> getPropertyHandler(Object object) {
+		return propertyHandler;
 	}
 
 	// public WebViewOperator(Activity activity, TabrisContext tabrisContext) {
