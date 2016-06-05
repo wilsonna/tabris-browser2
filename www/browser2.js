@@ -14,7 +14,7 @@ tabris.registerWidget("WebView2", {
 });
 */
 
-tabris.registerWidget("WebView2", {
+tabris.registerWidget("WebView3", {
   _type: "rwt.widgets.Browser2",
   _events: {
     navigate: {
