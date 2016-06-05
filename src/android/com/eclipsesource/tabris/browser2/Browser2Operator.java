@@ -1,42 +1,38 @@
-
 package com.eclipsesource.tabris.browser2;
 
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 
+import android.view.ViewGroup;
+
+import com.eclipsesource.tabris.android.AbstractTabrisOperator;
 import com.eclipsesource.tabris.android.TabrisActivity;
-import com.eclipsesource.tabris.android.internal.toolkit.IAbsoluteUriBuilder;
-import com.eclipsesource.tabris.android.internal.toolkit.operator.BrowserOperator;
-import com.eclipsesource.tabris.android.internal.toolkit.property.IPropertyHandler;
+import com.eclipsesource.tabris.android.TabrisContext;
+import com.eclipsesource.tabris.android.TabrisPropertyHandler;
 import com.eclipsesource.tabris.android.internal.toolkit.view.Browser;
 import com.eclipsesource.tabris.android.internal.toolkit.view.BrowserProgressListener;
 import com.eclipsesource.tabris.client.core.model.Properties;
-import com.eclipsesource.tabris.client.core.operation.CallOperation;
-import com.eclipsesource.tabris.client.core.operation.CreateOperation;
-import com.eclipsesource.tabris.client.core.operation.ListenOperation;
-import com.eclipsesource.tabris.client.core.util.ValidationUtil;
 
-public class Browser2Operator extends BrowserOperator {
+public class Browser2Operator extends AbstractTabrisOperator<Browser> {
 
-	// private final Activity activity;
+	private final TabrisActivity activity;
 	// private final TabrisContext tabrisContext;
 	// private final TabrisPropertyHandler<WebView> propertyHandler;
 
-	private final IPropertyHandler<Browser> propertyHandler;
+	private final TabrisPropertyHandler<Browser> propertyHandler;
 	private final CookieManager cookieManager = new CookieManager(); // .getInstance();
 
-	public Browser2Operator(TabrisActivity activity, IAbsoluteUriBuilder absoluteUriBuilder) {
-		super(activity, absoluteUriBuilder);
-
-		// cookieManager.setAcceptCookie(true);
+	public Browser2Operator(TabrisActivity activity, TabrisContext tabrisContext) {
+		this.activity = activity;
+		// this.tabrisContext = tabrisContext;
 		cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 		CookieHandler.setDefault(cookieManager);
-		propertyHandler = new Browser2PropertyHandler(activity, absoluteUriBuilder, cookieManager);
+		propertyHandler = new Browser2PropertyHandler(activity, tabrisContext, cookieManager);
 	}
 
 	@Override
-	protected IPropertyHandler<Browser> getPropertyHandler(Object object) {
+	public TabrisPropertyHandler<Browser> getPropertyHandler() {
 		return propertyHandler;
 	}
 
@@ -53,44 +49,50 @@ public class Browser2Operator extends BrowserOperator {
 	}
 
 	@Override
-	public void create(CreateOperation operation) {
-		ValidationUtil.validateCreateOperation(operation);
-		Browser browser = new Browser(getActivity());
-		initiateNewView(operation, browser);
+	public Browser create(Properties properties) {
+		// ValidationUtil.validateCreateOperation(operation);
+		// WebView webView = new WebView();
+		Browser browser = new Browser(activity);
+		// initiateNewView(operation, browser);
+
+		browser.setProgressListener(new BrowserProgressListener(activity, browser));
+
 		browser.init();
+		return browser;
 	}
 
-	@Override
-	protected void attachProgressListener(ListenOperation operation) {
-		Browser browser = findObjectById(operation.getTarget(), Browser.class);
-		browser.setProgressListener(new BrowserProgressListener(getActivity(), browser));
-	}
+	// @Override
+	// protected void attachProgressListener(ListenOperation operation) {
+	// Browser browser = findObjectById(operation.getTarget(), Browser.class);
+	// browser.setProgressListener(new BrowserProgressListener(getActivity(),
+	// browser));
+	// }
+	//
+	// @Override
+	// protected void removeProgressListener(ListenOperation operation) {
+	// Browser browser = findObjectById(operation.getTarget(), Browser.class);
+	// browser.setProgressListener(null);
+	// }
 
-	@Override
-	protected void removeProgressListener(ListenOperation operation) {
-		Browser browser = findObjectById(operation.getTarget(), Browser.class);
-		browser.setProgressListener(null);
-	}
-
-	@Override
-	public Object call(CallOperation operation) {
-		ValidationUtil.validateCallOperation(operation);
-		Properties properties = operation.getProperties();
-		if ("evaluate".equals(operation.getMethod())) {
-			String script = properties.getString("script");
-			if (script != null) {
-				Browser browser = findObjectById(operation.getTarget(), Browser.class);
-				browser.executeScript(script);
-			}
-		}
+	// @Override
+	// public Object call(CallOperation operation) {
+	// ValidationUtil.validateCallOperation(operation);
+	// Properties properties = operation.getProperties();
+	// if ("evaluate".equals(operation.getMethod())) {
+	// String script = properties.getString("script");
+	// if (script != null) {
+	// Browser browser = findObjectById(operation.getTarget(), Browser.class);
+	// browser.executeScript(script);
+	// }
+	// }
 		// else
 		// if ("screenshot".equals(operation.getMethod())) {
 		// Browser browser = (Browser)findObjectById(operation.getTarget(),
 		// Browser.class);
 		// return browser.takeScreenshot(getScreenshotFilename());
 		// }
-		return null;
-	}
+	// return null;
+	// }
 
 	// private String getScreenshotFilename() {
 	// return (new
@@ -122,10 +124,10 @@ public class Browser2Operator extends BrowserOperator {
 	// return webView;
 	// }
 
-	// @Override
-	// public void destroy(WebView webView) {
-	// ((ViewGroup) webView.getParent()).removeView(webView);
-	// }
+	@Override
+	public void destroy(Browser browser) {
+		((ViewGroup) browser.getParent()).removeView(browser);
+	}
 
 	// private class OnDateChangeListener implements
 	// CalendarView.OnDateChangeListener {

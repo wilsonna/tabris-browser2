@@ -1,7 +1,4 @@
-
 package com.eclipsesource.tabris.browser2;
-
-//import android.webkit.CookieManager;
 
 import java.net.CookieManager;
 import java.net.HttpCookie;
@@ -9,22 +6,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import android.net.Uri;
+import android.app.Activity;
 
-import com.eclipsesource.tabris.android.TabrisActivity;
-import com.eclipsesource.tabris.android.internal.toolkit.IAbsoluteUriBuilder;
-import com.eclipsesource.tabris.android.internal.toolkit.property.BrowserPropertyHandler;
+import com.eclipsesource.tabris.android.TabrisContext;
+import com.eclipsesource.tabris.android.TabrisWidgetPropertyHandler;
 import com.eclipsesource.tabris.android.internal.toolkit.view.Browser;
 import com.eclipsesource.tabris.client.core.model.Properties;
 import com.eclipsesource.tabris.client.core.util.ParamCheck;
 
-public class Browser2PropertyHandler extends BrowserPropertyHandler<Browser> {
-	private final IAbsoluteUriBuilder absoluteUriBuilder;
+public class Browser2PropertyHandler extends TabrisWidgetPropertyHandler<Browser> {
 	private final CookieManager cookieManager;
 
-	public Browser2PropertyHandler(TabrisActivity activity, IAbsoluteUriBuilder absoluteUriBuilder, CookieManager cookieManager) {
-		super(activity, absoluteUriBuilder);
-		this.absoluteUriBuilder = absoluteUriBuilder;
+	public Browser2PropertyHandler(Activity activity, TabrisContext tabrisContext, CookieManager cookieManager) {
+		super(activity, tabrisContext);
 		this.cookieManager = cookieManager;
 	}
 
@@ -69,11 +63,11 @@ public class Browser2PropertyHandler extends BrowserPropertyHandler<Browser> {
 	private void setUrl(Browser browser, Properties properties) {
 		String url = properties.getString("url");
 		if (url != null) {
-			if (Uri.parse(url).isAbsolute()) {
+			// if (Uri.parse(url).isAbsolute()) {
 				browser.loadUrl(url);
-			} else {
-				browser.loadUrl(absoluteUriBuilder.build(url).toString());
-			}
+			// } else {
+			// browser.loadUrl(absoluteUriBuilder.build(url).toString());
+			// }
 		}
 	}
 
@@ -110,9 +104,8 @@ public class Browser2PropertyHandler extends BrowserPropertyHandler<Browser> {
 		}
 		if (property.equals("html")) {
 			return getHtml(browser);
-		} else {
-			return super.get(browser, property);
 		}
+		return super.get(browser, property);
 	}
 
 	private Object getHtml(Browser browser) {
