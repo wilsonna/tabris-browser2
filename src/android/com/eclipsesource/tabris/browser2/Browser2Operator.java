@@ -10,6 +10,12 @@ import com.eclipsesource.tabris.android.internal.toolkit.IAbsoluteUriBuilder;
 import com.eclipsesource.tabris.android.internal.toolkit.operator.BrowserOperator;
 import com.eclipsesource.tabris.android.internal.toolkit.property.IPropertyHandler;
 import com.eclipsesource.tabris.android.internal.toolkit.view.Browser;
+import com.eclipsesource.tabris.android.internal.toolkit.view.BrowserProgressListener;
+import com.eclipsesource.tabris.client.core.model.Properties;
+import com.eclipsesource.tabris.client.core.operation.CallOperation;
+import com.eclipsesource.tabris.client.core.operation.CreateOperation;
+import com.eclipsesource.tabris.client.core.operation.ListenOperation;
+import com.eclipsesource.tabris.client.core.util.ValidationUtil;
 
 public class Browser2Operator extends BrowserOperator {
 
@@ -45,6 +51,52 @@ public class Browser2Operator extends BrowserOperator {
 	public String getType() {
 		return "rwt.widgets.Browser2";
 	}
+
+	@Override
+	public void create(CreateOperation operation) {
+		ValidationUtil.validateCreateOperation(operation);
+		Browser browser = new Browser(getActivity());
+		initiateNewView(operation, browser);
+		browser.init();
+	}
+
+	@Override
+	protected void attachProgressListener(ListenOperation operation) {
+		Browser browser = findObjectById(operation.getTarget(), Browser.class);
+		browser.setProgressListener(new BrowserProgressListener(getActivity(), browser));
+	}
+
+	@Override
+	protected void removeProgressListener(ListenOperation operation) {
+		Browser browser = findObjectById(operation.getTarget(), Browser.class);
+		browser.setProgressListener(null);
+	}
+
+	@Override
+	public Object call(CallOperation operation) {
+		ValidationUtil.validateCallOperation(operation);
+		Properties properties = operation.getProperties();
+		if ("evaluate".equals(operation.getMethod())) {
+			String script = properties.getString("script");
+			if (script != null) {
+				Browser browser = findObjectById(operation.getTarget(), Browser.class);
+				browser.executeScript(script);
+			}
+		}
+		// else
+		// if ("screenshot".equals(operation.getMethod())) {
+		// Browser browser = (Browser)findObjectById(operation.getTarget(),
+		// Browser.class);
+		// return browser.takeScreenshot(getScreenshotFilename());
+		// }
+		return null;
+	}
+
+	// private String getScreenshotFilename() {
+	// return (new
+	// StringBuilder()).append("screenshot").append(screenshotCounter++ %
+	// 10).append(".png").toString();
+	// }
 
 	// @Override
 	// public void create(CreateOperation operation) {
