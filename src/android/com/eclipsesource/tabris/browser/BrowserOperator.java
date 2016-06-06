@@ -5,6 +5,7 @@ import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 
+import android.app.Activity;
 import android.view.ViewGroup;
 
 import com.eclipsesource.tabris.android.AbstractTabrisOperator;
@@ -17,14 +18,14 @@ import com.eclipsesource.tabris.client.core.model.Properties;
 
 public class BrowserOperator extends AbstractTabrisOperator<Browser> {
 
-	private final TabrisActivity activity;
+	private final Activity activity;
 	// private final TabrisContext tabrisContext;
 	// private final TabrisPropertyHandler<WebView> propertyHandler;
 
 	private final TabrisPropertyHandler<Browser> propertyHandler;
 	private final CookieManager cookieManager = new CookieManager(); // .getInstance();
 
-	public BrowserOperator(TabrisActivity activity, TabrisContext tabrisContext) {
+	public BrowserOperator(Activity activity, TabrisContext tabrisContext) {
 		this.activity = activity;
 		// this.tabrisContext = tabrisContext;
 		cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
@@ -53,10 +54,11 @@ public class BrowserOperator extends AbstractTabrisOperator<Browser> {
 	public Browser create(Properties properties) {
 		// ValidationUtil.validateCreateOperation(operation);
 		// WebView webView = new WebView();
-		Browser browser = new Browser(activity);
+		TabrisActivity tabrisActivity = (TabrisActivity) activity;
+		Browser browser = new Browser(tabrisActivity);
 		// initiateNewView(operation, browser);
 
-		browser.setProgressListener(new BrowserProgressListener(activity, browser));
+		browser.setProgressListener(new BrowserProgressListener(tabrisActivity, browser));
 
 		browser.init();
 		return browser;
