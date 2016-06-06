@@ -6,24 +6,21 @@ import java.net.CookieManager;
 import java.net.CookiePolicy;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 
 import com.eclipsesource.tabris.android.AbstractTabrisOperator;
-import com.eclipsesource.tabris.android.TabrisActivity;
 import com.eclipsesource.tabris.android.TabrisContext;
 import com.eclipsesource.tabris.android.TabrisPropertyHandler;
-import com.eclipsesource.tabris.android.internal.toolkit.view.Browser;
-import com.eclipsesource.tabris.android.internal.toolkit.view.BrowserProgressListener;
 import com.eclipsesource.tabris.client.core.model.Properties;
 
-public class BrowserOperator extends AbstractTabrisOperator<Browser> {
+public class BrowserOperator extends AbstractTabrisOperator<ViewStub> {
 
 	private final Activity activity;
 	// private final TabrisContext tabrisContext;
 	// private final TabrisPropertyHandler<WebView> propertyHandler;
 
-	private final TabrisPropertyHandler<Browser> propertyHandler;
+	private final TabrisPropertyHandler<ViewStub> propertyHandler;
 	private final CookieManager cookieManager = new CookieManager(); // .getInstance();
 
 	public BrowserOperator(Activity activity, TabrisContext tabrisContext) {
@@ -35,7 +32,7 @@ public class BrowserOperator extends AbstractTabrisOperator<Browser> {
 	}
 
 	@Override
-	public TabrisPropertyHandler<Browser> getPropertyHandler() {
+	public TabrisPropertyHandler<ViewStub> getPropertyHandler() {
 		return propertyHandler;
 	}
 
@@ -48,21 +45,22 @@ public class BrowserOperator extends AbstractTabrisOperator<Browser> {
 
 	@Override
 	public String getType() {
-		return "ESBrowser";
+		return "ESCookieManager";
 	}
 
 	@Override
-	public Browser create(Properties properties) {
+	public ViewStub create(Properties properties) {
 		// ValidationUtil.validateCreateOperation(operation);
 		// WebView webView = new WebView();
-		Log.d("Test", "activity = " + activity);
-		TabrisActivity tabrisActivity = (TabrisActivity) activity;
+		// TabrisActivity tabrisActivity = (TabrisActivity) activity;
 
-		Browser browser = new Browser(tabrisActivity);
+		ViewStub browser = new ViewStub(activity.getApplicationContext());
+		// Browser browser = new Browser(tabrisActivity);
 		// initiateNewView(operation, browser);
-		browser.init();
+		// browser.init();
 
-		browser.setProgressListener(new BrowserProgressListener(tabrisActivity, browser));
+		// browser.setProgressListener(new
+		// BrowserProgressListener(tabrisActivity, browser));
 
 		return browser;
 	}
@@ -131,7 +129,7 @@ public class BrowserOperator extends AbstractTabrisOperator<Browser> {
 	// }
 
 	@Override
-	public void destroy(Browser browser) {
+	public void destroy(ViewStub browser) {
 		((ViewGroup) browser.getParent()).removeView(browser);
 	}
 
