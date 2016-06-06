@@ -8,8 +8,6 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
-
 allprojects {
     repositories {
         jcenter()
@@ -20,9 +18,6 @@ allprojects {
                     .toURL().toString()
         }
     }
-
-    sourceCompatibility = "1.7"
-    targetCompatibility = "1.7"
 }
 
 apply plugin: 'android-reporting'

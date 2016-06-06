@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        id="com.wna.tabris.browser"
-        version="1.0.1">
+        id="com.eclipsesource.tabris.browser"
+        version="1.0.0">
 
-    <name>Tabris.js Custom WebView Widget</name>
+    <name>Tabris.js Browser Widget</name>
 
-    <description>A custom web view widget for Tabris.js which givees access to cookies</description>
+    <description>A browser widget for Tabris.js</description>
 
-    <author>Wilson Na</author>
+    <author>EclipseSource</author>
 
     <!-- cordova -->
     <engines>
@@ -23,14 +23,14 @@
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <meta-data
-              android:name="com.eclipsesource.tabris.android.OPERATOR.com.wna.tabris.browser"
-              android:value="com.wna.tabris.browser.BrowserOperator" />
+              android:name="com.eclipsesource.tabris.android.OPERATOR.com.eclipsesource.tabris.browser"
+              android:value="com.eclipsesource.tabris.browser.BrowserOperator" />
         </config-file>
 
-        <source-file src="src/android/com/wna/tabris/browser/BrowserOperator.java"
-          target-dir="src/com/wna/tabris/browser" />
-        <source-file src="src/android/com/wna/tabris/browser/BrowserPropertyHandler.java"
-          target-dir="src/com/wna/tabris/browser" />
+        <source-file src="src/android/com/eclipsesource/tabris/browser/BrowserOperator.java"
+          target-dir="src/com/eclipsesource/tabris/browser" />
+        <source-file src="src/android/com/eclipsesource/tabris/browser/BrowserWidgetPropertyHandler.java"
+          target-dir="src/com/eclipsesource/tabris/browser" />
 
     </platform>
 
