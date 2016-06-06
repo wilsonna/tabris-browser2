@@ -45,7 +45,7 @@ public class BrowserOperator extends AbstractTabrisOperator<Browser> {
 
 	@Override
 	public String getType() {
-		return "WNWebView";
+		return "com.wna.Browser";
 	}
 
 	@Override

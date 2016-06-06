@@ -1,4 +1,5 @@
 tabris.registerWidget("WNWebView", {
+  _type: "com.wna.Browser",
   _events: {
     navigate: {
       trigger: function(event, name) {

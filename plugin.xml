@@ -23,7 +23,7 @@
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <meta-data
-              android:name="com.wna.tabris.android.OPERATOR.com.wna.tabris.browser"
+              android:name="com.eclipsesource.tabris.android.OPERATOR.com.wna.tabris.browser"
               android:value="com.wna.tabris.browser.BrowserOperator" />
         </config-file>
 
