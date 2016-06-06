@@ -1,13 +1,27 @@
-
 tabris.registerWidget("ESBrowser", {
-  _properties: {
-    "date": {type: "any", nocache: true}
-  },
   _events: {
-    "change:date": {
+    navigate: {
+      trigger: function(event, name) {
+        var intercepted = false;
+        event.preventDefault = function() {
+          intercepted = true;
+        };
+        this.trigger(name, this, event);
+        return intercepted;
+      }
+    },
+    load: {
+      name: "Progress",
       trigger: function(event) {
-        this.trigger("change:date", this, event.date);
+        this.trigger("load", this, event);
       }
     }
+  },
+  _properties: {
+    url: {type: "string", nocache: true},
+    html: {type: "string", nocache: true},
+    headers: {type: "any", default: {}},
+    cookies: {type: "any", default: {}},
+    initScript: {type: "string"}
   }
 });
