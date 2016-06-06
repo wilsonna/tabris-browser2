@@ -5,31 +5,37 @@ import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 
+import android.app.Activity;
+import android.util.Log;
+import android.view.ViewGroup;
+
+import com.eclipsesource.tabris.android.AbstractTabrisOperator;
 import com.eclipsesource.tabris.android.TabrisActivity;
-import com.eclipsesource.tabris.android.internal.toolkit.IAbsoluteUriBuilder;
-import com.eclipsesource.tabris.android.internal.toolkit.property.IPropertyHandler;
+import com.eclipsesource.tabris.android.TabrisContext;
+import com.eclipsesource.tabris.android.TabrisPropertyHandler;
 import com.eclipsesource.tabris.android.internal.toolkit.view.Browser;
+import com.eclipsesource.tabris.android.internal.toolkit.view.BrowserProgressListener;
+import com.eclipsesource.tabris.client.core.model.Properties;
 
-public class BrowserOperator extends com.eclipsesource.tabris.android.internal.toolkit.operator.BrowserOperator {
+public class BrowserOperator extends AbstractTabrisOperator<Browser> {
 
-	// private final Activity activity;
+	private final Activity activity;
 	// private final TabrisContext tabrisContext;
 	// private final TabrisPropertyHandler<WebView> propertyHandler;
 
-	private final IPropertyHandler<Browser> propertyHandler;
+	private final TabrisPropertyHandler<Browser> propertyHandler;
 	private final CookieManager cookieManager = new CookieManager(); // .getInstance();
 
-	public BrowserOperator(TabrisActivity activity, IAbsoluteUriBuilder absoluteUriBuilder) {
-		super(activity, absoluteUriBuilder);
-
-		// cookieManager.setAcceptCookie(true);
+	public BrowserOperator(Activity activity, TabrisContext tabrisContext) {
+		this.activity = activity;
+		// this.tabrisContext = tabrisContext;
 		cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 		CookieHandler.setDefault(cookieManager);
-		propertyHandler = new BrowserWidgetPropertyHandler(activity, absoluteUriBuilder, cookieManager);
+		propertyHandler = new BrowserWidgetPropertyHandler(activity, tabrisContext, cookieManager);
 	}
 
 	@Override
-	protected IPropertyHandler<Browser> getPropertyHandler(Object object) {
+	public TabrisPropertyHandler<Browser> getPropertyHandler() {
 		return propertyHandler;
 	}
 
@@ -44,32 +50,56 @@ public class BrowserOperator extends com.eclipsesource.tabris.android.internal.t
 	public String getType() {
 		return "ESBrowser";
 	}
-	/*
-	 * @Override public void create(CreateOperation operation) {
-	 * ValidationUtil.validateCreateOperation(operation); Browser browser = new
-	 * Browser(getActivity()); initiateNewView(operation, browser);
-	 * browser.init(); }
-	 * 
-	 * @Override protected void attachProgressListener(ListenOperation
-	 * operation) { Browser browser = findObjectById(operation.getTarget(),
-	 * Browser.class); browser.setProgressListener(new
-	 * BrowserProgressListener(getActivity(), browser)); }
-	 * 
-	 * @Override protected void removeProgressListener(ListenOperation
-	 * operation) { Browser browser = findObjectById(operation.getTarget(),
-	 * Browser.class); browser.setProgressListener(null); }
-	 * 
-	 * @Override public Object call(CallOperation operation) {
-	 * ValidationUtil.validateCallOperation(operation); Properties properties =
-	 * operation.getProperties(); if ("evaluate".equals(operation.getMethod()))
-	 * { String script = properties.getString("script"); if (script != null) {
-	 * Browser browser = findObjectById(operation.getTarget(), Browser.class);
-	 * browser.executeScript(script); } } // else // if
-	 * ("screenshot".equals(operation.getMethod())) { // Browser browser =
-	 * (Browser)findObjectById(operation.getTarget(), // Browser.class); //
-	 * return browser.takeScreenshot(getScreenshotFilename()); // } return null;
-	 * }
-	 */
+
+	@Override
+	public Browser create(Properties properties) {
+		// ValidationUtil.validateCreateOperation(operation);
+		// WebView webView = new WebView();
+		Log.d("Test", "activity = " + activity);
+		TabrisActivity tabrisActivity = (TabrisActivity) activity;
+
+		Browser browser = new Browser(tabrisActivity);
+		// initiateNewView(operation, browser);
+
+		browser.setProgressListener(new BrowserProgressListener(tabrisActivity, browser));
+
+		browser.init();
+		return browser;
+	}
+
+	// @Override
+	// protected void attachProgressListener(ListenOperation operation) {
+	// Browser browser = findObjectById(operation.getTarget(), Browser.class);
+	// browser.setProgressListener(new BrowserProgressListener(getActivity(),
+	// browser));
+	// }
+	//
+	// @Override
+	// protected void removeProgressListener(ListenOperation operation) {
+	// Browser browser = findObjectById(operation.getTarget(), Browser.class);
+	// browser.setProgressListener(null);
+	// }
+
+	// @Override
+	// public Object call(CallOperation operation) {
+	// ValidationUtil.validateCallOperation(operation);
+	// Properties properties = operation.getProperties();
+	// if ("evaluate".equals(operation.getMethod())) {
+	// String script = properties.getString("script");
+	// if (script != null) {
+	// Browser browser = findObjectById(operation.getTarget(), Browser.class);
+	// browser.executeScript(script);
+	// }
+	// }
+	// else
+	// if ("screenshot".equals(operation.getMethod())) {
+	// Browser browser = (Browser)findObjectById(operation.getTarget(),
+	// Browser.class);
+	// return browser.takeScreenshot(getScreenshotFilename());
+	// }
+	// return null;
+	// }
+
 	// private String getScreenshotFilename() {
 	// return (new
 	// StringBuilder()).append("screenshot").append(screenshotCounter++ %
@@ -100,10 +130,10 @@ public class BrowserOperator extends com.eclipsesource.tabris.android.internal.t
 	// return webView;
 	// }
 
-	// @Override
-	// public void destroy(WebView webView) {
-	// ((ViewGroup) webView.getParent()).removeView(webView);
-	// }
+	@Override
+	public void destroy(Browser browser) {
+		((ViewGroup) browser.getParent()).removeView(browser);
+	}
 
 	// private class OnDateChangeListener implements
 	// CalendarView.OnDateChangeListener {
