@@ -60,10 +60,10 @@ public class BrowserOperator extends AbstractTabrisOperator<Browser> {
 
 		Browser browser = new Browser(tabrisActivity);
 		// initiateNewView(operation, browser);
+		browser.init();
 
 		browser.setProgressListener(new BrowserProgressListener(tabrisActivity, browser));
 
-		browser.init();
 		return browser;
 	}
 
