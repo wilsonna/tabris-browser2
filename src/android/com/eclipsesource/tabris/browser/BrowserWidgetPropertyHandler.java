@@ -143,6 +143,16 @@ public class BrowserWidgetPropertyHandler extends TabrisWidgetPropertyHandler<Vi
 			cookies2.add(map);
 		}
 
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("name", "dummy1");
+		map.put("value", "dummy2");
+		map.put("path", "dummy3");
+		map.put("domain", "dummy4");
+		map.put("maxAge", "9000");
+		// map.put("isHttpOnly", Boolean.toString(cookie.isHttpOnly()));
+		map.put("isSecure", "false");
+		cookies2.add(map);
+
 		return cookies2;
 	}
 
