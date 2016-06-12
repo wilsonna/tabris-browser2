@@ -45,7 +45,7 @@ public class BrowserOperator extends AbstractTabrisOperator<ViewStub> {
 
 	@Override
 	public String getType() {
-		return "ESCookieManager";
+		return "com.wna.cookieManager";
 	}
 
 	@Override
