@@ -100,6 +100,8 @@ public class BrowserWidgetPropertyHandler extends TabrisWidgetPropertyHandler<Vi
 			return getCookies(browser);
 		} else if (property.equals("cookies2")) {
 			return getCookies2(browser);
+		} else if (property.equals("cookies3")) {
+			return getCookies3(browser);
 		}
 		// if (property.equals("url")) {
 		// return getUrl(browser);
@@ -167,6 +169,37 @@ public class BrowserWidgetPropertyHandler extends TabrisWidgetPropertyHandler<Vi
 		map.put("isSecure", "false");
 
 		return map;
+	}
+
+	private Object getCookies3(ViewStub browser) {
+		StringBuffer cookieString = new StringBuffer();
+		List<HttpCookie> cookies = cookieManager.getCookieStore().getCookies();
+		for (HttpCookie cookie : cookies) {
+			if (cookieString.length() > 0) {
+				cookieString.append(",");
+			}
+			cookieString
+			.append("{")
+			.append("name: '" + cookie.getName() + "',")
+			.append("value: '" + cookie.getValue() + "',")
+			.append("path: '" + cookie.getPath() + "',")
+			.append("domain: '" + cookie.getDomain() + "',")
+			.append("maxAge: " + Long.toString(cookie.getMaxAge()) + ",")
+			.append("isSecure: " + Boolean.toString(cookie.getSecure()))
+			.append("}");
+		}
+
+		cookieString
+		.append(",{")
+		.append("name: 'dummy1',")
+		.append("value: 'dummy2',")
+		.append("path: 'dummy3',")
+		.append("domain: 'dummy4',")
+		.append("maxAge: 9000,")
+		.append("isSecure: false")
+		.append("}");
+
+		return "[" + cookieString.toString() + "]";
 	}
 
 }
