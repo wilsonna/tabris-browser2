@@ -97,7 +97,7 @@ public class BrowserWidgetPropertyHandler extends TabrisWidgetPropertyHandler<Vi
 		// ParamCheck.notNull(browser, Browser.class);
 		// ParamCheck.notNull(property, "property");
 		if (property.equals("cookies")) {
-			return "{test:'hello',foo:'bar'}";// getCookies(browser);
+			return getCookies(browser);
 		}
 		// if (property.equals("url")) {
 		// return getUrl(browser);
