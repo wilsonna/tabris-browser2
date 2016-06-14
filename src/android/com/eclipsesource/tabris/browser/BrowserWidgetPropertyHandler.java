@@ -12,9 +12,7 @@ import android.view.ViewStub;
 
 import com.eclipsesource.tabris.android.TabrisContext;
 import com.eclipsesource.tabris.android.TabrisWidgetPropertyHandler;
-import com.eclipsesource.tabris.android.internal.toolkit.view.Browser;
 import com.eclipsesource.tabris.client.core.model.Properties;
-import com.eclipsesource.tabris.client.core.util.ParamCheck;
 
 public class BrowserWidgetPropertyHandler extends TabrisWidgetPropertyHandler<ViewStub> {
 	private final CookieManager cookieManager;
@@ -96,8 +94,8 @@ public class BrowserWidgetPropertyHandler extends TabrisWidgetPropertyHandler<Vi
 
 	@Override
 	public Object get(ViewStub browser, String property) {
-		ParamCheck.notNull(browser, Browser.class);
-		ParamCheck.notNull(property, "property");
+		// ParamCheck.notNull(browser, Browser.class);
+		// ParamCheck.notNull(property, "property");
 		if (property.equals("cookies")) {
 			return "{test:'hello',foo:'bar'}";// getCookies(browser);
 		}
