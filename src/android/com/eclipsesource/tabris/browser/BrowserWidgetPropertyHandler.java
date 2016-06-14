@@ -98,6 +98,8 @@ public class BrowserWidgetPropertyHandler extends TabrisWidgetPropertyHandler<Vi
 		// ParamCheck.notNull(property, "property");
 		if (property.equals("cookies")) {
 			return getCookies(browser);
+		} else if (property.equals("cookies2")) {
+			return getCookies2(browser);
 		}
 		// if (property.equals("url")) {
 		// return getUrl(browser);
@@ -151,7 +153,20 @@ public class BrowserWidgetPropertyHandler extends TabrisWidgetPropertyHandler<Vi
 		map.put("isSecure", "false");
 		cookies2.add(map);
 
-		return cookies2;
+		return cookies2.toArray();
+	}
+
+	private Object getCookies2(ViewStub browser) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("name", "dummy1");
+		map.put("value", "dummy2");
+		map.put("path", "dummy3");
+		map.put("domain", "dummy4");
+		map.put("maxAge", "9000");
+		// map.put("isHttpOnly", Boolean.toString(cookie.isHttpOnly()));
+		map.put("isSecure", "false");
+
+		return map;
 	}
 
 }
