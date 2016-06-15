@@ -189,8 +189,10 @@ public class BrowserWidgetPropertyHandler extends TabrisWidgetPropertyHandler<Vi
 			.append("}");
 		}
 
-		cookieString
-		.append(",{")
+		if (cookieString.length() > 0) {
+			cookieString.append(",");
+		}
+		cookieString.append("{")
 		.append("name: 'dummy1',")
 		.append("value: 'dummy2',")
 		.append("path: 'dummy3',")
