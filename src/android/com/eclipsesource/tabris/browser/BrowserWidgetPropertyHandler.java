@@ -173,6 +173,8 @@ public class BrowserWidgetPropertyHandler extends TabrisWidgetPropertyHandler<Vi
 
 	private Object getCookies3(ViewStub browser) {
 		StringBuffer cookieString = new StringBuffer();
+
+		android.webkit.CookieManager.getInstance().flush();
 		List<HttpCookie> cookies = cookieManager.getCookieStore().getCookies();
 		for (HttpCookie cookie : cookies) {
 			if (cookieString.length() > 0) {
