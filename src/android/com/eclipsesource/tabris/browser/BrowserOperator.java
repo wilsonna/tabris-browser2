@@ -21,13 +21,14 @@ public class BrowserOperator extends AbstractTabrisOperator<ViewStub> {
 	// private final TabrisPropertyHandler<WebView> propertyHandler;
 
 	private final TabrisPropertyHandler<ViewStub> propertyHandler;
-	private final CookieManager cookieManager = new CookieManager(); // .getInstance();
+	private final CookieManager cookieManager = (CookieManager) CookieHandler.getDefault(); //new CookieManager(); // .getInstance();
 
 	public BrowserOperator(Activity activity, TabrisContext tabrisContext) {
 		this.activity = activity;
 		// this.tabrisContext = tabrisContext;
 		cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-		CookieHandler.setDefault(cookieManager);
+//		CookieHandler.setDefault(cookieManager);
+		
 		propertyHandler = new BrowserWidgetPropertyHandler(activity, tabrisContext, cookieManager);
 	}
 
