@@ -1,14 +1,15 @@
 
 package com.eclipsesource.tabris.browser;
 
-import java.net.CookieManager;
-import java.net.HttpCookie;
+//import java.net.CookieManager;
+//import java.net.HttpCookie;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
 import android.view.ViewStub;
+import android.webkit.CookieManager;
 
 import com.eclipsesource.tabris.android.TabrisContext;
 import com.eclipsesource.tabris.android.TabrisWidgetPropertyHandler;
@@ -131,19 +132,19 @@ public class BrowserWidgetPropertyHandler extends TabrisWidgetPropertyHandler<Vi
 	// }
 
 	private Object getCookies(ViewStub browser) {
-		List<HttpCookie> cookies = cookieManager.getCookieStore().getCookies();
+//		List<HttpCookie> cookies = cookieManager.getCookieStore().getCookies();
 		List<HashMap<String, String>> cookies2 = new ArrayList<HashMap<String, String>>();
-		for (HttpCookie cookie : cookies) {
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("name", cookie.getName());
-			map.put("value", cookie.getValue());
-			map.put("path", cookie.getPath());
-			map.put("domain", cookie.getDomain());
-			map.put("maxAge", Long.toString(cookie.getMaxAge()));
-			// map.put("isHttpOnly", Boolean.toString(cookie.isHttpOnly()));
-			map.put("isSecure", Boolean.toString(cookie.getSecure()));
-			cookies2.add(map);
-		}
+//		for (HttpCookie cookie : cookies) {
+//			HashMap<String, String> map = new HashMap<String, String>();
+//			map.put("name", cookie.getName());
+//			map.put("value", cookie.getValue());
+//			map.put("path", cookie.getPath());
+//			map.put("domain", cookie.getDomain());
+//			map.put("maxAge", Long.toString(cookie.getMaxAge()));
+//			// map.put("isHttpOnly", Boolean.toString(cookie.isHttpOnly()));
+//			map.put("isSecure", Boolean.toString(cookie.getSecure()));
+//			cookies2.add(map);
+//		}
 
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("name", "dummy1");
@@ -174,26 +175,26 @@ public class BrowserWidgetPropertyHandler extends TabrisWidgetPropertyHandler<Vi
 	private Object getCookies3(ViewStub browser) {
 		StringBuffer cookieString = new StringBuffer();
 
-		android.webkit.CookieManager.getInstance().flush();
-		List<HttpCookie> cookies = cookieManager.getCookieStore().getCookies();
-		for (HttpCookie cookie : cookies) {
-			if (cookieString.length() > 0) {
-				cookieString.append(",");
-			}
-			cookieString
-			.append("{")
-			.append("name: '" + cookie.getName() + "',")
-			.append("value: '" + cookie.getValue() + "',")
-			.append("path: '" + cookie.getPath() + "',")
-			.append("domain: '" + cookie.getDomain() + "',")
-			.append("maxAge: " + Long.toString(cookie.getMaxAge()) + ",")
-			.append("isSecure: " + Boolean.toString(cookie.getSecure()))
-			.append("}");
-		}
-
-		if (cookieString.length() > 0) {
-			cookieString.append(",");
-		}
+		cookieManager.flush();
+//		List<HttpCookie> cookies = cookieManager.getCookieStore().getCookies();
+//		for (HttpCookie cookie : cookies) {
+//			if (cookieString.length() > 0) {
+//				cookieString.append(",");
+//			}
+//			cookieString
+//			.append("{")
+//			.append("name: '" + cookie.getName() + "',")
+//			.append("value: '" + cookie.getValue() + "',")
+//			.append("path: '" + cookie.getPath() + "',")
+//			.append("domain: '" + cookie.getDomain() + "',")
+//			.append("maxAge: " + Long.toString(cookie.getMaxAge()) + ",")
+//			.append("isSecure: " + Boolean.toString(cookie.getSecure()))
+//			.append("}");
+//		}
+//
+//		if (cookieString.length() > 0) {
+//			cookieString.append(",");
+//		}
 		cookieString
 		.append("{")
 		.append("name: 'dummy1',")
@@ -204,7 +205,7 @@ public class BrowserWidgetPropertyHandler extends TabrisWidgetPropertyHandler<Vi
 		.append("isSecure: false")
 		.append("}");
 
-		return "[" + cookieString.toString() + "]";
+		return "[" + cookieManager.hasCookies() + "]";
 	}
 
 }

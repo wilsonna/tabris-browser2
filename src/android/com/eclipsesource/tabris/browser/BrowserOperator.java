@@ -1,13 +1,14 @@
 
 package com.eclipsesource.tabris.browser;
 
-import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
+//import java.net.CookieHandler;
+//import java.net.CookieManager;
+//import java.net.CookiePolicy;
 
 import android.app.Activity;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.webkit.CookieManager;
 
 import com.eclipsesource.tabris.android.AbstractTabrisOperator;
 import com.eclipsesource.tabris.android.TabrisContext;
@@ -21,7 +22,7 @@ public class BrowserOperator extends AbstractTabrisOperator<ViewStub> {
 	// private final TabrisPropertyHandler<WebView> propertyHandler;
 
 	private final TabrisPropertyHandler<ViewStub> propertyHandler;
-	private final CookieManager cookieManager = new CookieManager(); // .getInstance();
+	private final CookieManager cookieManager = CookieManager.getInstance();// new CookieManager(); // .getInstance();
 
 	public BrowserOperator(Activity activity, TabrisContext tabrisContext) {
 		// TabrisActivity tabrisActivity = (TabrisActivity) activity;
@@ -34,8 +35,8 @@ public class BrowserOperator extends AbstractTabrisOperator<ViewStub> {
 
 		this.activity = activity;
 		// this.tabrisContext = tabrisContext;
-		cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-		CookieHandler.setDefault(cookieManager);
+//		cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+//		CookieHandler.setDefault(cookieManager);
 		propertyHandler = new BrowserWidgetPropertyHandler(activity, tabrisContext, cookieManager);
 	}
 
