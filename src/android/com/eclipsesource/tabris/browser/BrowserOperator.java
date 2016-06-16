@@ -7,7 +7,6 @@ package com.eclipsesource.tabris.browser;
 
 import android.app.Activity;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.view.ViewStub;
 import android.webkit.CookieManager;
 
@@ -66,9 +65,9 @@ public class BrowserOperator extends AbstractTabrisOperator<ViewStub> {
 		// TabrisActivity tabrisActivity = (TabrisActivity) activity;
 
 		ViewStub browser = new ViewStub(activity.getApplicationContext());
-		LayoutParams layoutParams = browser.getLayoutParams();
-		layoutParams.height = 0;
-		browser.setLayoutParams(layoutParams);
+		// LayoutParams layoutParams = browser.getLayoutParams();
+		// layoutParams.height = 0;
+		// browser.setLayoutParams(layoutParams);
 		// browser.setVisibility(0);
 		// Browser browser = new Browser(tabrisActivity);
 		// initiateNewView(operation, browser);
