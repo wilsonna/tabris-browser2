@@ -15,6 +15,7 @@ import com.eclipsesource.tabris.android.AbstractTabrisOperator;
 import com.eclipsesource.tabris.android.TabrisContext;
 import com.eclipsesource.tabris.android.TabrisPropertyHandler;
 import com.eclipsesource.tabris.client.core.model.Properties;
+import com.eclipsesource.tabris.client.core.util.ParamCheck;
 
 public class BrowserOperator extends AbstractTabrisOperator<ViewStub> {
 
@@ -80,11 +81,11 @@ public class BrowserOperator extends AbstractTabrisOperator<ViewStub> {
 	public Object call(ViewStub object, String method, Properties properties) {
 		Log.d( "com.wna.CookieManager", String.format( "Call to method \"%s\". Properties: %s", method, properties ) );
 		
-		// if (method.equals("getCookie")) {
-		// String url = properties.getString("url");
-		// ParamCheck.notNull(url, "url");
-		// return cookieManager.getCookie(url);
-		// }
+		if (method.equals("getCookie")) {
+			String url = properties.getString("url");
+			ParamCheck.notNull(url, "url");
+			return cookieManager.getCookie(url);
+		}
 		return super.call(object, method, properties);
 	}
 
