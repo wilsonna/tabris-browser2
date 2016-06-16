@@ -15,6 +15,7 @@ import com.eclipsesource.tabris.android.AbstractTabrisOperator;
 import com.eclipsesource.tabris.android.TabrisContext;
 import com.eclipsesource.tabris.android.TabrisPropertyHandler;
 import com.eclipsesource.tabris.client.core.model.Properties;
+import com.eclipsesource.tabris.client.core.util.ParamCheck;
 
 public class BrowserOperator extends AbstractTabrisOperator<ViewStub> {
 
