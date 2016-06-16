@@ -176,6 +176,7 @@ public class BrowserWidgetPropertyHandler extends TabrisWidgetPropertyHandler<Vi
 		StringBuffer cookieString = new StringBuffer();
 
 		cookieManager.flush();
+		String cookie = cookieManager.getCookie("http://192.168.1.108:58080/emart_ws_store/cookies.jsp");
 //		List<HttpCookie> cookies = cookieManager.getCookieStore().getCookies();
 //		for (HttpCookie cookie : cookies) {
 //			if (cookieString.length() > 0) {
@@ -195,17 +196,18 @@ public class BrowserWidgetPropertyHandler extends TabrisWidgetPropertyHandler<Vi
 //		if (cookieString.length() > 0) {
 //			cookieString.append(",");
 //		}
-		cookieString
-		.append("{")
-		.append("name: 'dummy1',")
-		.append("value: 'dummy2',")
-		.append("path: 'dummy3',")
-		.append("domain: 'dummy4',")
-		.append("maxAge: 9000,")
-		.append("isSecure: false")
-		.append("}");
 
-		return "[" + cookieManager.hasCookies() + "]";
+		// cookieString
+		// .append("{")
+		// .append("name: 'dummy1',")
+		// .append("value: 'dummy2',")
+		// .append("path: 'dummy3',")
+		// .append("domain: 'dummy4',")
+		// .append("maxAge: 9000,")
+		// .append("isSecure: false")
+		// .append("}");
+
+		return cookieManager.getClass() + " [" + cookie + "]";
 	}
 
 }
