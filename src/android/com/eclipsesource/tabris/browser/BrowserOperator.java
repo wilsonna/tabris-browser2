@@ -6,8 +6,8 @@ package com.eclipsesource.tabris.browser;
 //import java.net.CookiePolicy;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.ViewStub;
 import android.webkit.CookieManager;
 
@@ -66,6 +66,9 @@ public class BrowserOperator extends AbstractTabrisOperator<ViewStub> {
 		// TabrisActivity tabrisActivity = (TabrisActivity) activity;
 
 		ViewStub browser = new ViewStub(activity.getApplicationContext());
+		LayoutParams layoutParams = browser.getLayoutParams();
+		layoutParams.height = 0;
+		browser.setLayoutParams(layoutParams);
 		// browser.setVisibility(0);
 		// Browser browser = new Browser(tabrisActivity);
 		// initiateNewView(operation, browser);
@@ -79,8 +82,8 @@ public class BrowserOperator extends AbstractTabrisOperator<ViewStub> {
 
 	@Override
 	public Object call(ViewStub object, String method, Properties properties) {
-		Log.d( "com.wna.CookieManager", String.format( "Call to method \"%s\". Properties: %s", method, properties ) );
-		
+		// Log.d( "com.wna.CookieManager", String.format(
+		// "Call to method \"%s\". Properties: %s", method, properties ) );
 		if (method.equals("getCookie")) {
 			String url = properties.getString("url");
 			ParamCheck.notNull(url, "url");
