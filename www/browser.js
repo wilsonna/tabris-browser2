@@ -5,7 +5,7 @@ tabris.registerWidget("ESCookieManager", {
     cookies2: {type: "any", default: {}},
     cookies3: {type: "string", nocache: true}
   },
-  getCookie: function() {
-    return this._nativeCall("getCookie", arguments);
+  getCookie: function(url) {
+    return this._nativeCall("getCookie", {url: url});
   }
 });
