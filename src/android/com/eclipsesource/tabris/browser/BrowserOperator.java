@@ -14,6 +14,7 @@ import com.eclipsesource.tabris.android.AbstractTabrisOperator;
 import com.eclipsesource.tabris.android.TabrisContext;
 import com.eclipsesource.tabris.android.TabrisPropertyHandler;
 import com.eclipsesource.tabris.client.core.model.Properties;
+import com.eclipsesource.tabris.client.core.util.ParamCheck;
 
 public class BrowserOperator extends AbstractTabrisOperator<ViewStub> {
 
@@ -64,6 +65,7 @@ public class BrowserOperator extends AbstractTabrisOperator<ViewStub> {
 		// TabrisActivity tabrisActivity = (TabrisActivity) activity;
 
 		ViewStub browser = new ViewStub(activity.getApplicationContext());
+		browser.setVisibility(0);
 		// Browser browser = new Browser(tabrisActivity);
 		// initiateNewView(operation, browser);
 		// browser.init();
@@ -72,6 +74,16 @@ public class BrowserOperator extends AbstractTabrisOperator<ViewStub> {
 		// BrowserProgressListener(tabrisActivity, browser));
 
 		return browser;
+	}
+
+	@Override
+	public Object call(ViewStub object, String method, Properties properties) {
+		if (method.equals("getCookie")) {
+			String url = properties.getString("url");
+			ParamCheck.notNull(url, "url");
+			return cookieManager.getCookie(url);
+		}
+		return super.call(object, method, properties);
 	}
 
 	// @Override

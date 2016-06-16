@@ -209,5 +209,4 @@ public class BrowserWidgetPropertyHandler extends TabrisWidgetPropertyHandler<Vi
 
 		return cookieManager.getClass() + " [" + cookie + "]";
 	}
-
 }
