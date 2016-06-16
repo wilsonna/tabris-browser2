@@ -1,2 +1,10 @@
-/bin
+.DS_Store
+.idea/
+.gradle
+build
+node_modules/
+platforms/
+plugins/
+*.iml
+local.properties
 /target
