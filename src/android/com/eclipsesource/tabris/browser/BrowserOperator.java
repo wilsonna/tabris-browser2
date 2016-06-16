@@ -63,7 +63,7 @@ public class BrowserOperator extends AbstractTabrisOperator<ViewStub> {
 		// ValidationUtil.validateCreateOperation(operation);
 		// WebView webView = new WebView();
 		// TabrisActivity tabrisActivity = (TabrisActivity) activity;
-
+		cookieManager.removeAllCookies(null);
 		ViewStub browser = new ViewStub(activity.getApplicationContext());
 		// LayoutParams layoutParams = browser.getLayoutParams();
 		// layoutParams.height = 0;
